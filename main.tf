@@ -12,6 +12,10 @@ provider "azurerm" {
   features {}
 }
 
+variable "ssh_public_key" {
+  type = string
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "aks-terraform-rg"
   location = "South Africa North"
@@ -83,7 +87,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
     admin_ssh_key {
 
       username   = "azureadmin"
-      public_key = file("id_rsa.pub")
+      public_key = var.ssh_public_key
   }
 
   os_disk {
