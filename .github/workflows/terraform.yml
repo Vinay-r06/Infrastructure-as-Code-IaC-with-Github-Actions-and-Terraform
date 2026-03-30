@@ -28,7 +28,12 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
            
       - name: Terraform Init
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=project2-automation" \
+            -backend-config="storage_account_name=automationaksproject2" \
+            -backend-config="container_name=container1" \
+            -backend-config="key=terraform.tfstate"
 
       - name: Terraform Validate
         run: terraform validate
